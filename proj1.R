@@ -21,5 +21,5 @@ head(rawData)
 rm(unzippedFile)
 rm(temp)
 
-#rawData$Date = as.Date(as.character(rawData$Date), format="%d/%m/%Y")
+rawData$Date = as.Date(as.character(rawData$Date), format="%d/%m/%Y")
 rawData$Time = strptime(paste(rawData$Date, rawData$Time), format = "%d/%m/%Y %H:%M:%S")
