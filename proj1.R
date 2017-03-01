@@ -5,7 +5,8 @@ temp = tempfile(fileext = c(".zip"))
 download.file(url, temp)
 
 # Need to unzip since the zip file can't be read directly by read.* 
-unzippedFile = unzip(temp) # "household_power_consumption.txt"
+unzippedFile = unzip(temp) 
+unzippedFile = "household_power_consumption.txt"
 
 # Read the data 
 #read.csv(unzippedFile, header = TRUE, sep=";")
@@ -21,5 +22,12 @@ head(rawData)
 rm(unzippedFile)
 rm(temp)
 
-rawData$Date = as.Date(as.character(rawData$Date), format="%d/%m/%Y")
+# First convert Time since it uses Date with character type as originally read
 rawData$Time = strptime(paste(rawData$Date, rawData$Time), format = "%d/%m/%Y %H:%M:%S")
+rawData$Date = as.Date(as.character(rawData$Date), format="%d/%m/%Y")
+
+dev = png(filename = "plot1.png", width = 480, height = 480, units = "px")
+hist(rawData$Global_active_power, col = "red"
+     , main = "Global Active Power"
+     , xlab = "Global Active Power (kilowatts)")
+dev.off()
